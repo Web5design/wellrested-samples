@@ -11,7 +11,8 @@
     },
     "autoload": {
         "psr-0": {
-            "pjdietz\\WellRESTedSamples": "src/"
+            "pjdietz\\WellRESTedSamples": "src/",
+            "ApiSample": "api/lib/"
         }
     }
 }

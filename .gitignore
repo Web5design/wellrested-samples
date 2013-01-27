@@ -1,7 +1,6 @@
 # Composer
 vendor/
 
-
 # OSX
 .DS_Store
 .AppleDouble
