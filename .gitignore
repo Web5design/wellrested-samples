@@ -1,0 +1,10 @@
+# Composer
+vendor/
+
+
+# OSX
+.DS_Store
+.AppleDouble
+
+# PhpStorm
+.idea/workspace.xml
