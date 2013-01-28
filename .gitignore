@@ -5,5 +5,8 @@ vendor/
 .DS_Store
 .AppleDouble
 
+# README preview
+README.html
+
 # PhpStorm
 .idea/workspace.xml
