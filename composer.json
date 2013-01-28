@@ -7,7 +7,7 @@
         }
     ],
     "require": {
-        "pjdietz/WellRESTed": "dev-psrupdate"
+        "pjdietz/WellRESTed": "dev-master"
     },
     "autoload": {
         "psr-0": {
