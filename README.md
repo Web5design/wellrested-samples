@@ -33,7 +33,7 @@ Demonstrates how to create and output an HTTP response, complete with status cod
 
 Shows how to create a new request and communicate with another server. Specifically, it makes a simple GET request to Google.com and displayes the response.
 
-WellRESTed uses [PHP's cURL](http://php.net/manual/en/book.curl.php) to make HTTP requsts, to ensure that you have this installed if you wish to use this feature.
+WellRESTed uses [PHP's cURL](http://php.net/manual/en/book.curl.php) to make HTTP requsts, so ensure that you have this installed if you wish to use this feature.
 
 
 ### server-side-request-and-response.php

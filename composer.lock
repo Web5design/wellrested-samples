@@ -7,12 +7,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pjdietz/WellRESTed",
-                "reference": "0bae1c1b487ba09ce01b58cf04be3122f47a55be"
+                "reference": "d0ef6a62fb7992f28c0b98f10c383b21dd2bfd7f"
             },
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2013-01-28 02:27:19",
+            "time": "2013-01-30 01:59:55",
             "type": "library",
             "autoload": {
                 "psr-0": {
