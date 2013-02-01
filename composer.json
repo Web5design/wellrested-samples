@@ -1,13 +1,7 @@
 {
     "name": "pjdietz/WellRESTed-Samples",
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/pjdietz/WellRESTed"
-        }
-    ],
     "require": {
-        "pjdietz/WellRESTed": "dev-master"
+        "pjdietz/wellrested": "dev-master"
     },
     "autoload": {
         "psr-0": {

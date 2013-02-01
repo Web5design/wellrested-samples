@@ -1,24 +1,31 @@
 {
-    "hash": "2283d04bd31aee731f6af646cc62eaa3",
+    "hash": "5a68880bf1fe26b5c951e312645262f1",
     "packages": [
         {
-            "name": "pjdietz/WellRESTed",
+            "name": "pjdietz/wellrested",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/pjdietz/WellRESTed",
-                "reference": "d0ef6a62fb7992f28c0b98f10c383b21dd2bfd7f"
+                "url": "https://github.com/pjdietz/wellrested",
+                "reference": "0380b1afffaee43c94c4435d4bab908cf0236a9d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pjdietz/wellrested/zipball/0380b1afffaee43c94c4435d4bab908cf0236a9d",
+                "reference": "0380b1afffaee43c94c4435d4bab908cf0236a9d",
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2013-01-30 01:59:55",
+            "time": "2013-02-01 00:36:42",
             "type": "library",
             "autoload": {
                 "psr-0": {
                     "pjdietz\\WellRESTed": "src/"
                 }
             },
+            "notification-url": "http://packagist.org/downloads/",
             "authors": [
                 {
                     "name": "PJ Dietz",
@@ -26,12 +33,12 @@
                 }
             ],
             "description": "Simple PHP Library for RESTful APIs",
-            "homepage": "https://github.com/pjdietz/WellRESTed",
+            "homepage": "https://github.com/pjdietz/wellrested",
             "keywords": [
                 "php",
                 "rest",
-                "restful",
-                "api"
+                "api",
+                "restful"
             ]
         }
     ],
