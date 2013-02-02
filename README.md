@@ -146,3 +146,9 @@ The ArticleController class takes care of reading from and writing to the data f
 #### /lib/ApiSample/data/articles.json
 
 Just a flat file storing some data in JSON format. You'll need to enable write access for this file to try out the POST, PUT, and DELETE methods of the API.
+
+
+Copyright and License
+---------------------
+Copyright © 2013 by PJ Dietz
+Licensed under the [MIT license](http://opensource.org/licenses/MIT)
