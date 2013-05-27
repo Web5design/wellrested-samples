@@ -1,7 +1,7 @@
 WellRESTed Samples
 ==================
 
-Sample files for demonstrating [WellRESTed](https://github.com/pjdietz/wellrested)
+Sample files for demonstrating [WellRESTed](https://github.com/pjdietz/wellrested).
 
 ### Installation
 
@@ -14,7 +14,9 @@ $ curl -s https://getcomposer.org/installer | php
 $ php composer.phar install
 ```
 
-For the mini API in the **api** directory, you may need to modify some paths to fit your installation. Also, set the permissions to allow write access for the file **/api/lib/ApiSample/data/articles.json** if you would like to use the POST, PUT, and DELETE methods to modify the data.
+For the mini API in the **api** directory, you may need to modify some paths to fit your installation. The ApiSampleRouter class has a class constant you can modify to fit your installation path.
+
+Also, set the permissions to allow write access for the file **/api/lib/ApiSample/data/articles.json** if you would like to use the POST, PUT, and DELETE methods to modify the data.
 
 
 Single-file Examples
@@ -31,9 +33,9 @@ Demonstrates how to create and output an HTTP response, complete with status cod
 
 ### client-side-request.php
 
-Shows how to create a new request and communicate with another server. Specifically, it makes a simple GET request to Google.com and displayes the response.
+Shows how to create a new request and communicate with another server. Specifically, it makes a simple GET request to Google.com and displays the response.
 
-WellRESTed uses [PHP's cURL](http://php.net/manual/en/book.curl.php) to make HTTP requsts, so ensure that you have this installed if you wish to use this feature.
+WellRESTed uses [PHP's cURL](http://php.net/manual/en/book.curl.php) to make HTTP requests, so ensure that you have this installed if you wish to use this feature.
 
 
 ### server-side-request-and-response.php
@@ -52,7 +54,7 @@ The **api** directory contains a mini API project that demonstrates the main fea
 For this sample project, the only resources are "articles", which are kind of like little mini blog posts or news feed items. Each article contains the following fields:
 
 - **articleId:** Numeric unique identifier for the article
-- **slug:** A human-readable unique identifier for the article
+- **slug:** A human-readable, URI-friendly, unique identifier for the article
 - **title:** Text title describing the article
 - **excerpt:** A short portion of the article's content
 
@@ -85,7 +87,7 @@ Represents the collection of articles.
 
 **/articles/{id}** and **/articles/{slug}**
 
-Represents one specific article identified by the numberic ID {id} or by the alpha-numeric slug {slug}.
+Represents one specific article identified by the numeric ID {id} or by the alpha-numeric slug {slug}.
 
 - **GET** Display one specific article.
 - **POST** Not allowed
@@ -111,7 +113,7 @@ The **.htaccess** file uses mod_rewrite to direct all incoming requests to non-r
 
 #### /lib/ApiSample/ApiSampleRouter.php
 
-The Router builds a list of rules (called Routes) that determine which Handler class it should defer to based on the request's URI. For example, examine this line from the contructor:
+The Router builds a list of rules (called Routes) that determine which Handler class it should defer to based on the request's URI. For example, examine this line from the constructor:
 
 ```php
 $this->addTemplate('/articles/', 'ArticleCollectionHandler');
@@ -125,7 +127,7 @@ The URIs for the routes can also include variables identified by regular express
 $this->addTemplate('/articles/{id}', 'ArticleItemHandler', array('id' => Route::RE_NUM));
 ```
 
-Here, we're using a URI templte to indicate that a variable must follow /articles/. The second parameter says that any requests matching this should be handled by an ArticleItemHandler instance. The third parameter describes the variables contained in the URI template. This parameter is an array of associative arrays with the keys as variable names from the template and the values as regular expressions that the variables must match. Route::RE_NUM is a predefined constant for digits only, but you can create your own, or use other predefined constants.
+Here, we're using a URI template to indicate that a variable must follow /articles/. The second parameter says that any requests matching this should be handled by an ArticleItemHandler instance. The third parameter describes the variables contained in the URI template. This parameter is an associative arrays with the keys as variable names from the template and the values as regular expressions that the variables must match. Route::RE_NUM is a predefined constant for digits only, but you can create your own, or use other predefined constants.
 
 For more information on URI templates, see [RFC 6570](http://tools.ietf.org/html/rfc6570).
 

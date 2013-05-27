@@ -9,7 +9,7 @@
 // Include the autoload script.
 require_once('../vendor/autoload.php');
 
-use \pjdietz\WellRESTed\Request;
+use pjdietz\WellRESTed\Request;
 
 // Make a requst to Google in one line:
 $rqst = new Request();

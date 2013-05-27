@@ -2,8 +2,8 @@
 
 namespace ApiSample\Handlers;
 
-use \pjdietz\WellRESTed\Handler;
-use \ApiSample\ArticlesController;
+use pjdietz\WellRESTed\Handler;
+use ApiSample\ArticlesController;
 
 /**
  * Handler class for one specific article.
@@ -13,43 +13,38 @@ use \ApiSample\ArticlesController;
  */
 class ArticleItemHandler extends Handler
 {
+    protected function getAllowedMethods()
+    {
+        return array('GET', 'PUT', 'DELETE');
+    }
 
     /**
      * Respond to a GET request.
      */
     protected function get()
     {
-
         // Read the list of articles.
-        $articles = new ArticlesController();
-
-        $article = false;
+        $controller = new ArticlesController();
 
         // Locate the article by ID or slug
-        if (isset($articles->data)) {
-
+        $article = false;
+        if (isset($controller->data)) {
             if (isset($this->args['id'])) {
-                $article = $articles->getArticleById($this->args['id']);
+                $article = $controller->getArticleById($this->args['id']);
             } elseif (isset($this->args['slug'])) {
-                $article = $articles->getArticleBySlug($this->args['slug']);
+                $article = $controller->getArticleBySlug($this->args['slug']);
             }
-
         }
 
         if ($article !== false) {
-
-            $this->response->statusCode = 200;
+            $this->response->setStatusCode(200);
             $this->response->setHeader('Content-type', 'application/json');
-            $this->response->body = json_encode($article);
-
+            $this->response->setBody(json_encode($article));
         } else {
-
-            $this->response->statusCode = 404;
+            $this->response->setStatusCode(404);
             $this->response->setHeader('Content-type', 'text/plain');
-            $this->response->body = 'Unable to locate the article.';
-
+            $this->response->setBody('Unable to locate the article.');
         }
-
     }
 
     /**
@@ -59,77 +54,69 @@ class ArticleItemHandler extends Handler
     {
 
         // Read the request body, and ensure it is in the proper format.
-        $article = json_decode($this->request->body, true);
+        $article = json_decode($this->request->getBody(), true);
 
         // Ensure the JSON is well-formed.
         if (!$article) {
-            $this->response->statusCode = 400;
+            $this->response->setStatusCode(400);
             $this->response->setHeader('Content-type', 'text/plain');
-            $this->response->body = 'Unable to parse JSON from request body.';
+            $this->response->setBody('Unable to parse JSON from request body.');
             return;
         }
 
         // Ensure required fields are present.
         if (!isset($article['slug']) || $article['slug'] === '') {
-            $this->response->statusCode = 400;
+            $this->response->setStatusCode(400);
             $this->response->setHeader('Content-type', 'text/plain');
-            $this->response->body = 'Request body missing slug.';
+            $this->response->setBody('Request body missing slug.');
             return;
         }
 
         if (!isset($article['title'])) {
-            $this->response->statusCode = 400;
+            $this->response->setStatusCode(400);
             $this->response->setHeader('Content-type', 'text/plain');
-            $this->response->body = 'Request body missing title.';
+            $this->response->setBody('Request body missing title.');
             return;
         }
 
         if (!isset($article['excerpt'])) {
-            $this->response->statusCode = 400;
+            $this->response->setStatusCode(400);
             $this->response->setHeader('Content-type', 'text/plain');
-            $this->response->body = 'Request body missing excerpt.';
+            $this->response->setBody('Request body missing excerpt.');
             return;
         }
 
         // Read the list of articles.
-        $articles = new \apisample\ArticlesController();
-
-        $oldArticle = false;
+        $controller = new ArticlesController();
 
         // Locate the article by ID or slug
-        if (isset($articles->data)) {
-
+        $oldArticle = false;
+        if (isset($controller->data)) {
             if (isset($this->args['id'])) {
-                $oldArticle = $articles->getArticleById($this->args['id']);
+                $oldArticle = $controller->getArticleById($this->args['id']);
             } elseif (isset($this->args['slug'])) {
-                $oldArticle = $articles->getArticleBySlug($this->args['slug']);
+                $oldArticle = $controller->getArticleBySlug($this->args['slug']);
             }
-
         }
 
         // Fail if the article identified by the URI does not exist.
         if ($oldArticle === false) {
-
-            $this->response->statusCode = 404;
+            $this->response->setStatusCode(404);
             $this->response->setHeader('Content-type', 'text/plain');
-            $this->response->body = 'Unable to locate the article.';
+            $this->response->setBody('Unable to locate the article.');
             return;
-
         }
 
         // If the user located the resource by ID and has passed a slug,
         // make sure the new slug is not already in use.
         if (isset($this->args['id'])) {
-
-            $slugArticle = $articles->getArticleBySlug($article['slug']);
-
+            $slugArticle = $controller->getArticleBySlug($article['slug']);
             if ($slugArticle && $slugArticle['articleId'] != $article['articleId']) {
-                $this->response->statusCode = 409;
+                $this->response->setStatusCode(409);
                 $this->response->setHeader('Content-type', 'text/plain');
-                $this->response->body = 'Unable to store article. Slug "' . $article['slug'] . '" is already in use.';
+                $this->response->setBody('Unable to store article. Slug "' . $article['slug'] . '" is already in use.');
                 return;
             }
-
         }
 
         // Update the article.
@@ -139,19 +126,19 @@ class ArticleItemHandler extends Handler
         $article['articleId'] = $oldArticle['articleId'];
 
         // Keep the results from the update for the response.
-        $article = $articles->updateArticle($article);
+        $article = $controller->updateArticle($article);
 
-        if ($articles->save() === false) {
-            $this->response->statusCode = 500;
+        if ($controller->save() === false) {
+            $this->response->setStatusCode(500);
             $this->response->setHeader('Content-type', 'text/plain');
-            $this->response->body = 'Unable to write to file. Make sure permissions are set properly.';
+            $this->response->setBody('Unable to write to file. Make sure permissions are set properly.');
             return;
         }
 
         // Ok!
-        $this->response->statusCode = 200;
+        $this->response->setStatusCode(200);
         $this->response->setHeader('Content-type', 'application/json');
-        $this->response->body = json_encode($article);
+        $this->response->setBody(json_encode($article));
         return;
 
     }
@@ -161,43 +148,39 @@ class ArticleItemHandler extends Handler
      */
     protected function delete()
     {
-
         // Read the list of articles.
-        $articles = new \apisample\ArticlesController();
-
-        $article = false;
+        $controller = new ArticlesController();
 
         // Locate the article by ID or slug
-        if (isset($articles->data)) {
-
+        $article = false;
+        if (isset($controller->data)) {
             if (isset($this->args['id'])) {
-                $article = $articles->getArticleById($this->args['id']);
+                $article = $controller->getArticleById($this->args['id']);
             } elseif (isset($this->args['slug'])) {
-                $article = $articles->getArticleBySlug($this->args['slug']);
+                $article = $controller->getArticleBySlug($this->args['slug']);
             }
-
         }
 
         // Ensure the article exists.
         if ($article === false) {
-            $this->response->statusCode = 404;
+            $this->response->setStatusCode(404);
             $this->response->setHeader('Content-type', 'text/plain');
-            $this->response->body = 'Unable to locate the article.';
+            $this->response->setBody('Unable to locate the article.');
             return;
         }
 
         // Remove the article and save.
-        $articles->removeArticle($article['articleId']);
+        $controller->removeArticle($article['articleId']);
 
-        if ($articles->save() === false) {
-            $this->response->statusCode = 500;
+        if ($controller->save() === false) {
+            $this->response->setStatusCode(500);
             $this->response->setHeader('Content-type', 'text/plain');
-            $this->response->body = 'Unable to write to file. Make sure permissions are set properly.';
+            $this->response->setBody('Unable to write to file. Make sure permissions are set properly.');
             return;
         }
 
         // Ok!
-        $this->response->statusCode = 200;
+        $this->response->setStatusCode(200);
         return;
 
     }

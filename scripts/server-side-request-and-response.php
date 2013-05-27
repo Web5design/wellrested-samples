@@ -10,8 +10,8 @@
 // Include the autoload script.
 require_once('../vendor/autoload.php');
 
-use \pjdietz\WellRESTed\Request;
-use \pjdietz\WellRESTed\Response;
+use pjdietz\WellRESTed\Request;
+use pjdietz\WellRESTed\Response;
 
 // Read the request sent to the server as the singleton instance.
 $rqst = Request::getRequest();
@@ -20,7 +20,7 @@ $rqst = Request::getRequest();
 // $rqst = new Request();
 // $rqst->readHttpRequest();
 
-// Read some info from the request and store it to an associative array.
+// Read some info from the request, and store it to an associative array.
 $rtn = array(
     'Path' => $rqst->path,
     'URI' => $rqst->uri,
